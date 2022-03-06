@@ -1,0 +1,79 @@
+#Run Interactive Shell
+py manage.py shell
+
+#Import Models
+from empApp.models import Department, Employee
+
+#Retrive All Data
+Department.objects.all()
+Employee.objects.all()
+
+#Using Primary Key / ID Field
+Department.objects.get(pk = 1)
+Employee.objects.get(id = 3)
+
+#Order by ID and Name
+Department.objects.order_by('-id')
+Employee.objects.order_by('-name') 
+
+#Single Data by Name
+Employee.objects.get(name = 'Someone')
+
+#Single Data by Name
+Employee.objects.get(name = 'Sahedus Sadekin')
+
+#Single Data by Name CASE INSENSITIVE
+Employee.objects.get(name__iexact= 'sahedus sadekin')
+
+#Single Data by Name Search
+Employee.objects.get(name__icontains= 'sadekin')
+
+#Multiple Data by Using Filter
+Employee.objects.filter(name__icontains= 'k')
+
+#Count Multiple Data
+Employee.objects.filter(name__icontains= 'k').count()
+
+#Salary Data Greater Than
+Employee.objects.filter(salary__gt= 5000)
+
+#Multiple Data Greater Than Equal To
+Employee.objects.filter(salary__gte= 5000)
+
+#Multiple Data Less Than
+Employee.objects.filter(id__lt= 5)
+
+#Multiple Data Less Than Equal To
+Employee.objects.filter(id__lte= 5)
+
+#Multiple Data Less Than Equal To Descending Order
+Employee.objects.filter(id__lte= 5).order_by('-id')
+
+#Multiple Data Starting with Character
+Employee.objects.filter(name__startswith= 's')
+
+#Multiple Data Ending with Character
+Employee.objects.filter(name__endswith= 'n')
+
+from django.db.models import Q
+#Multiple Data Starting and/or Ending Character
+Employee.objects.filter( Q(name__startswith= 's') | Q(name__endswith= 'n'))
+
+Employee.objects.filter(Q(name__startswith= 's') & Q(name__endswith= 'n'))
+
+#Getting Range amount of Data with Slicing
+Employee.objects.filter(pk__in= [3, 6])
+
+#Getting Specified Multiple Data by  with Tuple
+Employee.objects.filter(id__in = (1, 7))
+
+#Getting from 0 to 5 
+Employee.objects.all()[:5]
+
+Employee.objects.all()[4:10]
+
+#Getting Range amount of Data
+Employee.objects.filter(pk__range=(5,10))
+
+#Name or salary Condition
+Employee.objects.filter( Q(name__contains= 'm') | Q(salary__gte= 5000))
