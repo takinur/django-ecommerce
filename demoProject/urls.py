@@ -20,4 +20,5 @@ from empApp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', views.index, name='Home'),
+    path('list/', views.list, name='test'),
 ]
