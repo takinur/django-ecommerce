@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+
+{% block content %}
+  <h1>
+    {{ heading }}
+  </h1>
+    <div class="container">
+        <h1 class="font-weight-bolder text-success">
+            List of all Employees
+        </h1>
+        <hr />
+        <a href="{% url 'create' %}" class="btn btn-secondary mb-4">Add new kormochari</a>
+        <table class="table  table-striped table-hover" >
+            <thead>
+                <tr class="table-dark">
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Date of Joining</th>
+                    <th>Photo</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emp in employees %}
+                <tr>
+                    <td scope="row">{{ emp.id }}</td>
+                    <td>{{ emp.name | upper }}</td>
+                    <td>{{ emp.email }}</td>
+                    <td>{{ emp.doj | date:'d-m-Y' }}</td>
+                    <td>
+                        <img src="{{ emp.photo.url }}" alt="..." width="50px">
+                    </td>
+                    <td>{{ emp.salary | floatformat:"g" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
