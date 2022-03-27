@@ -22,6 +22,7 @@
                     <th>Date of Joining</th>
                     <th>Photo</th>
                     <th>Salary</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +36,9 @@
                         <img src="{{ emp.photo.url }}" alt="..." width="50px">
                     </td>
                     <td>{{ emp.salary | floatformat:"g" }}</td>
+                    <td>
+                        <a href="{% url 'edit' emp.id %}"> <i class="fa fa-edit fa-2x"></i> </a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

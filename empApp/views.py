@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from empApp.models import Employee
-from email import message
 from multiprocessing import context
-from pyexpat.errors import messages
 from django.shortcuts import redirect, render
 from empApp.models import Employee
 from empApp.forms import EmployeeForm
@@ -31,3 +29,19 @@ def create(request):
 
     context= {'title': 'Create Employee', 'form':form}
     return render(request, 'create.html',context)
+
+def edit(request, id):
+    if request.method == 'POST':
+        employee = Employee.objects.get(pk=id)
+        form = EmployeeForm(request.POST or None, instance=employee)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Data Updated successfully')
+            return redirect('list')
+    
+    else:
+        employee = Employee.objects.get(pk=id)
+        form = EmployeeForm(request.POST or None, instance=employee)
+
+    context= {'title': 'Edit Employee', 'form':form}
+    return render(request, 'create.html', context)
